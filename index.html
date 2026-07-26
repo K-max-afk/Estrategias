@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!-- PANTALLA INICIAL / DE INICIO DE SESIÓN -->
+    <!-- Pantalla de inicio -->
     <div id="start-screen" class="overlay">
         <div class="start-card">
             <h1 class="glitch">ACADEMIA HYPERION</h1>
@@ -18,9 +18,8 @@
         </div>
     </div>
 
-    <!-- CONSOLA PRINCIPAL DE LA SIMULACIÓN -->
+    <!-- Consola principal -->
     <main class="console-container">
-        <!-- Encabezado de la interfaz -->
         <header class="console-header">
             <div class="status-indicator">
                 <span class="dot blink"></span>
@@ -30,28 +29,24 @@
             <div class="phase-badge" id="phase-badge">ACTO 1</div>
         </header>
 
-        <!-- Área de despliegue visual / narrativo -->
         <section class="display-area">
             <div class="hud-frame">
                 <div id="act-title" class="act-header">CÓDICE DE HYPERION</div>
-                <div id="story-text" class="typewriter-text"></div>
+                <div id="story-text" class="story-content"></div>
             </div>
         </section>
 
-        <!-- Modulo interactivo de preguntas y retroalimentación -->
         <section class="interaction-area">
             <div class="question-box">
                 <span class="alert-icon">⚠️</span>
                 <p id="question-text">Esperando activación de protocolo...</p>
             </div>
 
-            <!-- Entrada de respuesta de los estudiantes -->
             <div class="input-group">
-                <textarea id="student-answer" placeholder="Registrar respuesta/ideas libre de los cadetes aquí..."></textarea>
+                <textarea id="student-answer" placeholder="Escribe aquí la respuesta o ideas de los estudiantes..."></textarea>
                 <button id="btn-submit-answer" class="cyber-btn-sub">REGISTRAR RESPUESTA</button>
             </div>
 
-            <!-- Panel desplegable de retroalimentación para el profesor -->
             <div id="theory-panel" class="theory-panel hidden">
                 <div class="theory-header">💡 RETROALIMENTACIÓN TEÓRICA PARA EL PROFESOR</div>
                 <div id="theory-content" class="theory-body"></div>
