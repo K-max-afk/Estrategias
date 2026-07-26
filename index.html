@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academia de Magia Arcana - Comprensión Lectora</title>
-    <!-- Fuentes Temáticas -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <title>Experiencia Cinematográfica - Academia Arcana</title>
+    <!-- Fuente Arcana Elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #030208;
+            --bg-black: #000000;
             --gold-glow: #ffd700;
-            --purple-magic: #8a2be2;
             --violet-glow: #c77dff;
-            --text-light: #f0e6ff;
-            --font-magic: 'Cinzel', serif;
-            --font-text: 'Quicksand', sans-serif;
+            --purple-magic: #8a2be2;
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Quicksand', sans-serif;
         }
 
         * {
@@ -25,31 +24,29 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: var(--font-text);
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: var(--font-body);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+            overflow: hidden;
         }
 
-        /* --- CONTROLADOR DE AUDIO DE FONDO --- */
-        .audio-controls {
+        /* --- CONTROLES DE AUDIO MÚSICA DE FONDO --- */
+        .audio-bar {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(15, 10, 25, 0.9);
-            border: 1px solid var(--gold-glow);
-            padding: 8px 15px;
+            background: rgba(15, 10, 25, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 8px 16px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 500;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            z-index: 100;
         }
 
         .audio-btn {
@@ -60,217 +57,204 @@
             cursor: pointer;
         }
 
-        .volume-slider {
+        .vol-slider {
             width: 70px;
             accent-color: var(--gold-glow);
             cursor: pointer;
         }
 
-        /* --- PANTALLA EN NEGRO INICIAL --- */
-        .cinematic-overlay {
+        /* --- PANTALLA TOTALMENTE NEGRA DE INICIO --- */
+        .intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000;
+            background: var(--bg-black);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 1.2s ease-out;
+            transition: opacity 1.5s ease;
         }
 
-        .portal-trigger {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .magic-orb {
-            width: 80px;
-            height: 80px;
+        .orb-portal {
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffffff, var(--purple-magic));
-            box-shadow: 0 0 30px var(--purple-magic), 0 0 60px var(--violet-glow);
-            animation: floatOrb 3s infinite ease-in-out;
+            background: radial-gradient(circle, #ffffff 0%, var(--purple-magic) 70%, transparent 100%);
+            box-shadow: 0 0 40px var(--purple-magic), 0 0 80px var(--violet-glow);
+            animation: pulseOrb 3s infinite ease-in-out;
+            cursor: pointer;
+            margin-bottom: 25px;
         }
 
-        @keyframes floatOrb {
-            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 30px var(--purple-magic); }
-            50% { transform: translateY(-15px) scale(1.05); box-shadow: 0 0 50px var(--violet-glow); }
+        @keyframes pulseOrb {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px var(--purple-magic); }
+            50% { transform: scale(1.08); box-shadow: 0 0 60px var(--violet-glow); }
         }
 
-        .whisper-text {
-            font-family: var(--font-magic);
-            letter-spacing: 2px;
+        .intro-text {
+            font-family: var(--font-title);
             color: var(--violet-glow);
-            font-size: 0.9rem;
+            letter-spacing: 3px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
             opacity: 0.8;
         }
 
-        /* --- ESCENARIO DE LA HISTORIA --- */
-        .magic-stage {
+        /* --- ESCENA CINEMATOGRÁFICA --- */
+        .cinema-container {
             width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .grimoire-card {
-            background: rgba(15, 10, 25, 0.88);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 16px;
+            max-width: 850px;
             padding: 30px;
-            box-shadow: 0 0 40px rgba(138, 43, 226, 0.25);
-            backdrop-filter: blur(10px);
             text-align: center;
+            z-index: 10;
         }
 
-        .chapter-tag {
-            font-family: var(--font-magic);
-            font-size: 0.85rem;
-            letter-spacing: 3px;
+        .chapter-header {
+            font-family: var(--font-title);
             color: var(--gold-glow);
-            border: 1px solid var(--gold-glow);
-            padding: 4px 15px;
-            border-radius: 20px;
-            background: rgba(255, 215, 0, 0.1);
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .arcane-title {
-            font-family: var(--font-magic);
-            font-size: 1.8rem;
+        .scene-title {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
             color: #ffffff;
-            margin-top: 15px;
-            text-shadow: 0 0 10px var(--purple-magic);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--purple-magic);
         }
 
-        /* --- APARTADO PARA IMÁGENES Y AUDIOS DE LA ESCENA --- */
-        .media-container {
-            margin: 20px 0;
+        /* Contenedor de Recursos Visuales y Audios */
+        .media-box {
+            margin: 15px auto 25px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
         }
 
-        .scene-image {
+        .scene-img {
             max-width: 100%;
-            max-height: 250px;
-            border-radius: 10px;
+            max-height: 260px;
+            border-radius: 8px;
             border: 1px solid var(--violet-glow);
-            box-shadow: 0 0 15px rgba(199, 125, 255, 0.2);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
             object-fit: cover;
         }
 
-        .scene-audio {
+        .scene-audio-player {
             width: 100%;
-            max-width: 400px;
-            height: 35px;
+            max-width: 380px;
+            height: 32px;
             accent-color: var(--gold-glow);
         }
 
-        .scene-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #e6d8ff;
-            margin-bottom: 20px;
+        /* Texto con Efecto Máquina de Escribir */
+        .typewriter-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #e0d0ff;
+            min-height: 120px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
 
-        /* --- PREGUNTA / DESAFÍO --- */
-        .challenge-zone {
-            background: rgba(138, 43, 226, 0.1);
-            border-left: 3px solid var(--gold-glow);
-            border-right: 3px solid var(--gold-glow);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        /* Pregunta / Desafío */
+        .question-card {
+            background: rgba(20, 10, 35, 0.9);
+            border: 1px solid var(--gold-glow);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1s ease;
         }
 
-        .challenge-prompt {
-            font-size: 1.05rem;
-            font-weight: 600;
+        .question-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question-text {
+            font-size: 1.15rem;
             color: #ffffff;
+            font-weight: 600;
         }
 
-        /* --- BOTONES --- */
-        .arcane-btn, .glow-btn, .next-scene-btn {
-            font-family: var(--font-magic);
+        /* Botones Acción Mágica */
+        .btn-magic {
+            font-family: var(--font-title);
             background: transparent;
             color: var(--gold-glow);
             border: 1px solid var(--gold-glow);
-            padding: 12px 24px;
+            padding: 12px 28px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            margin-top: 10px;
         }
 
-        .arcane-btn:hover, .glow-btn:hover {
+        .btn-magic:hover {
             background: var(--gold-glow);
-            color: #000;
-            box-shadow: 0 0 15px var(--gold-glow);
+            color: #000000;
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
-        .next-scene-btn {
-            border-color: var(--violet-glow);
-            color: var(--violet-glow);
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .next-scene-btn:hover {
-            background: var(--violet-glow);
-            color: #000;
-        }
-
-        /* --- PANEL DE RETROALIMENTACIÓN DE EXPOSITORAS --- */
-        .teacher-panel {
+        /* Panel Guía para Expositoras */
+        .group-guide-panel {
             margin-top: 20px;
-            background: rgba(20, 10, 35, 0.95);
-            border: 1px dashed var(--gold-glow);
+            background: rgba(10, 5, 20, 0.95);
+            border: 1px dashed var(--violet-glow);
             padding: 20px;
             border-radius: 12px;
             text-align: left;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
         }
 
-        .panel-header {
-            color: var(--gold-glow);
-            font-family: var(--font-magic);
+        .panel-title {
+            font-family: var(--font-title);
+            color: var(--violet-glow);
             font-size: 0.85rem;
+            letter-spacing: 1px;
             margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.3);
             padding-bottom: 5px;
         }
 
         .panel-body {
             font-size: 0.95rem;
-            line-height: 1.5;
-            color: #f0e6ff;
+            line-height: 1.6;
+            color: #d1c4e9;
         }
 
-        /* --- WIDGET ASISTENTE IA --- */
+        /* Widget Asistente IA */
         .ai-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 600;
+            z-index: 500;
         }
 
-        .ai-trigger {
+        .ai-btn {
             background: var(--purple-magic);
             color: #fff;
             border: 1px solid var(--violet-glow);
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 0 15px var(--purple-magic);
             font-size: 1.2rem;
         }
 
-        .ai-box {
+        .ai-modal {
             position: absolute;
             bottom: 60px;
             right: 0;
@@ -279,24 +263,16 @@
             border: 1px solid var(--violet-glow);
             border-radius: 12px;
             padding: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            box-shadow: 0 0 20px rgba(0,0,0,0.9);
         }
 
-        .ai-header {
-            font-family: var(--font-magic);
+        .ai-modal-header {
+            font-family: var(--font-title);
             color: var(--violet-glow);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
+            font-size: 0.8rem;
             display: flex;
             justify-content: space-between;
-        }
-
-        .ai-close { cursor: pointer; color: #fff; }
-
-        .ai-content {
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: #d1c4e9;
+            margin-bottom: 8px;
         }
 
         .hidden { display: none !important; }
@@ -305,160 +281,258 @@
 <body>
 
     <!-- REPRODUCTOR MÚSICA DE FONDO -->
-    <div class="audio-controls">
+    <div class="audio-bar">
         <button id="btn-audio-toggle" class="audio-btn">🎵</button>
-        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.3">
-        <!-- Reemplaza la ruta 'audio/musica_fondo.mp3' con tu archivo -->
-        <audio id="bg-music" loop src="audio/musica_fondo.mp3"></audio>
+        <input type="range" id="vol-slider" class="vol-slider" min="0" max="1" step="0.05" value="0.3">
+        <!-- Puedes colocar la ruta de tu audio de fondo aquí -->
+        <audio id="bg-music" loop src="audio/ambiente_magico.mp3"></audio>
     </div>
 
-    <!-- PANTALLA TOTALMENTE NEGRA DE INICIO -->
-    <div id="start-screen" class="cinematic-overlay">
-        <div class="portal-trigger">
-            <div class="magic-orb"></div>
-            <p class="whisper-text">Toca el orbe para despertar el portal...</p>
-            <button id="btn-start" class="arcane-btn">ABRIR EL LIBRO ARCANO</button>
-        </div>
+    <!-- PANTALLA TOTALMENTE NEGRA AL INICIAR -->
+    <div id="intro-screen" class="intro-screen">
+        <div class="orb-portal" id="btn-start-orb"></div>
+        <p class="intro-text">TOCA EL ORBE PARA ENTRAR AL MUNDO ARCANO</p>
+        <button id="btn-start" class="btn-magic">INICIAR EXPERIENCIA</button>
     </div>
 
-    <!-- ESCENARIO DE LA HISTORIA -->
-    <main class="magic-stage hidden" id="magic-stage">
-        <div class="grimoire-card">
-            
-            <header>
-                <span class="chapter-tag" id="phase-badge">CAPÍTULO I</span>
-                <h1 class="arcane-title" id="act-title">EL GRIMOIRE ANCESTRAL</h1>
-            </header>
+    <!-- ESCENARIO CINEMATOGRÁFICO PRINCIPAL -->
+    <main id="cinema-stage" class="cinema-container hidden">
+        
+        <div class="chapter-header" id="chapter-tag">CAPÍTULO I</div>
+        <h1 class="scene-title" id="scene-title">EL GRIMORIO SIN LETRAS</h1>
 
-            <!-- APARTADO PARA IMAGEN Y AUDIO DE LA ESCENA (REUTILIZABLE) -->
-            <section class="media-container">
-                <!-- Deja la imagen o cambiala en la variable JS -->
-                <img id="scene-img" class="scene-image hidden" src="" alt="Escena Arcana">
-                <!-- Audio narrativo de la escena -->
-                <audio id="scene-audio-player" class="scene-audio hidden" controls src=""></audio>
-            </section>
-
-            <section>
-                <p id="story-text" class="scene-description"></p>
-            </section>
-
-            <section class="challenge-zone">
-                <p id="question-text" class="challenge-prompt"></p>
-            </section>
-
-            <div>
-                <button id="btn-reveal-panel" class="glow-btn">
-                    ✨ ACTIVAR RETROALIMENTACIÓN DE LAS EXPOSITORAS
-                </button>
-            </div>
-
-            <!-- Panel para que ustedes como expositoras retroalimenten -->
-            <div id="theory-panel" class="teacher-panel hidden">
-                <div class="panel-header">📜 GUÍA DE RETROALIMENTACIÓN PARA LAS EXPOSITORAS</div>
-                <div id="theory-content" class="panel-body"></div>
-                <button id="btn-next-act" class="next-scene-btn">AVANZAR EN LA HISTORIA ➔</button>
-            </div>
-
+        <!-- APARTADO PARA TUS IMÁGENES Y AUDIOS DE ESCENA -->
+        <div class="media-box">
+            <img id="scene-img" class="scene-img hidden" src="" alt="Escena Arcana">
+            <audio id="scene-audio" class="scene-audio-player hidden" controls src=""></audio>
         </div>
+
+        <!-- TEXTO NARRATIVO QUE SE ESCRIBE SOLO -->
+        <div class="typewriter-text" id="typewriter-text"></div>
+
+        <!-- TARJETA DE PREGUNTA / DISCUSIÓN -->
+        <div class="question-card" id="question-card">
+            <p class="question-text" id="question-text"></p>
+        </div>
+
+        <!-- CONTROLES MÁGICOS -->
+        <div id="controls-zone">
+            <button id="btn-reveal-guide" class="btn-magic hidden">
+                ✨ VER GUÍA DE RETROALIMENTACIÓN (EXPOSITORAS)
+            </button>
+        </div>
+
+        <!-- PANEL DE RETROALIMENTACIÓN PARA USTEDES COMO GRUPO -->
+        <div id="group-guide" class="group-guide-panel hidden">
+            <div class="panel-title">📜 GUÍA DE DISCUSIÓN PARA LAS EXPOSITORAS</div>
+            <div id="guide-content" class="panel-body"></div>
+            <button id="btn-next-scene" class="btn-magic" style="width: 100%; margin-top: 15px;">
+                CONTINUAR LA HISTORIA ➔
+            </button>
+        </div>
+
     </main>
 
-    <!-- ASISTENTE IA EN VIVO -->
+    <!-- ASISTENTE IA DE APOYO -->
     <div class="ai-widget">
-        <button id="btn-ai-toggle" class="ai-trigger">🔮</button>
-        <div id="ai-box" class="ai-box hidden">
-            <div class="ai-header">
-                <span>ASISTENTE A.R.I.A.</span>
-                <span id="ai-close" class="ai-close">✕</span>
+        <button id="btn-ai" class="ai-btn">🔮</button>
+        <div id="ai-modal" class="ai-modal hidden">
+            <div class="ai-modal-header">
+                <span>ORÁCULO A.R.I.A.</span>
+                <span id="ai-close" style="cursor:pointer;">✕</span>
             </div>
-            <div id="ai-content" class="ai-content">
-                ¡Hola, Expositoras! Estoy lista para asistirlas con la teoría o dar pistas a los estudiantes cuando lo necesiten.
-            </div>
+            <div id="ai-text" style="font-size:0.85rem; color:#d1c4e9; line-height:1.4;"></div>
         </div>
     </div>
 
-    <!-- LÓGICA EN JAVASCRIPT INTEGRADA -->
     <script>
-        // === DATOS DE LAS ESCENAS CON RUTA DE IMÁGENES Y AUDIOS ===
-        const escenas = [
+        // === GUION CINEMATOGRÁFICO CON LÓGICA CONTINUA ===
+        const historiaArcana = [
             {
                 capitulo: "CAPÍTULO I",
-                titulo: "EL DESPERTAAR DEL GRIMOIRE",
-                imagen: "", // Poner ruta: ej "img/acto1.jpg"
-                audioNarracion: "", // Poner ruta: ej "audio/acto1.mp3"
-                historia: "Han ingresado a la Academia de Magia Secreta. Ante ustedes flota un Grimorio de cristal antiguo. No tiene letras ordinarias, solo runas que cambian de color. Muchos aprendices intentan 'mirar' las runas, pero sus mentes quedan vacías porque creen que leer es solo pasar la vista sobre el cristal.",
-                pregunta: "✨ Cadetes de la Magia: ¿Por qué creen que 'mirar las runas' no funciona? ¿Qué significa realmente COMPRENDER este libro para liberar su poder?",
-                retroalimentacion: "<b>Puntos clave a retroalimentar como grupo:</b><br>• <i>Definición de Comprensión Lectora:</i> No es decodificar (mirar palabras), es interpretar y construir significado activo.<br>• Teoría cognitiva y la activación de conocimientos previos.",
-                aiTip: "💡 Pista para el grupo: Si los estudiantes están callados, pregúntales: '¿Es lo mismo ver una palabra en un idioma desconocido que entender lo que significa?'"
+                titulo: "EL GRIMORIO SIN LETRAS",
+                imagen: "", // Agrega ruta: "img/cap1.jpg"
+                audioNarracion: "", // Agrega ruta: "audio/cap1.mp3"
+                texto: "Han cruzado el umbral de la Academia Arcana. Ante ustedes flota un libro de cristal antiguo. Muchos intentan 'mirar' sus páginas, pero el cristal se apaga. Creen que leer es solo pasar los ojos sobre el texto, y por eso la magia no despierta...",
+                pregunta: "✨ Pregunta a la clase: ¿Por qué creen que solo 'mirar' las palabras no funciona? ¿Qué significa realmente COMPRENDER para activar el poder del libro?",
+                retroalimentacion: "<b>Concepto a retroalimentar:</b><br>• Explicar la <i>Definición de Comprensión Lectora</i>: No es solo decodificar (ver palabras), es procesar, interpretar y construir significado activo en la mente.",
+                aiTip: "💡 Pista del Oráculo: Pregúntales si alguna vez han leído una página entera pensando en otra cosa y al final no recordaron nada. ¡Eso es falta de comprensión!"
             },
             {
                 capitulo: "CAPÍTULO II",
-                titulo: "LA NIEBLA DEL SECTOR OSCURO",
+                titulo: "LA NIEBLA DEL OLVIDO",
                 imagen: "", 
                 audioNarracion: "",
-                historia: "Una niebla oscura ataca la biblioteca arcana. Si los aprendices no entienden el verdadero propósito de dominar el conocimiento de los libros, la niebla absorberá su magia y sus recuerdos para siempre.",
-                pregunta: "✨ ¿Cuál es la motivación o beneficio más grande que tienen al aprender a comprender a fondo estos textos sagrados? ¿Para qué les servirá en su vida?",
-                retroalimentacion: "<b>Puntos clave a retroalimentar como grupo:</b><br>• <i>Importancia y Objetivos:</i> Aprendizaje autónomo, pensamiento crítico, mejor rendimiento y preparación para la vida diaria.",
-                aiTip: "💡 Pista para el grupo: Relaciona la respuesta con la autonomía: 'Comprender bien te hace libre de pensar por ti mismo'."
+                texto: "Una sombra avanza sobre la biblioteca arcana. Si los aprendices no entienden para qué sirve dominar el conocimiento de estos libros, la sombra congelará sus mentes y no podrán avanzar...",
+                pregunta: "✨ Pregunta a la clase: ¿Cuál es el propósito o la ventaja real de aprender a comprender a fondo lo que leemos? ¿De qué nos sirve en la vida diaria?",
+                retroalimentacion: "<b>Concepto a retroalimentar:</b><br>• Explicar la <i>Importancia y Objetivos</i>: Fomenta el pensamiento crítico, la autonomía para tomar decisiones y el éxito académico y profesional.",
+                aiTip: "💡 Pista del Oráculo: Relaciónalo con la libertad: 'Quien comprende lo que lee, nunca puede ser engañado fácilmente'."
             },
             {
                 capitulo: "CAPÍTULO III",
                 titulo: "EL PASILLO DE LOS ENCANTAMIENTOS",
                 imagen: "", 
                 audioNarracion: "",
-                historia: "Están frente a la puerta del Gran Hechizo. La puerta muestra un símbolo dorado y un título misterioso. Para cruzar el pasillo lleno de susurros y distracciones, deben aplicar técnicas antes y durante el recorrido.",
-                pregunta: "✨ 1) ¿Qué harían USTEDES antes de abrir la puerta observando solo el título y la imagen?<br>2) ¿Qué harían MIENTRAS caminan por el pasillo para no perder la concentración?",
-                retroalimentacion: "<b>Puntos clave a retroalimentar como grupo:</b><br>• <i>ANTES:</i> Activar conocimientos, predecir, observar títulos/imágenes y fijar propósito.<br>• <i>DURANTE:</i> Subrayar, palabras clave, preguntas y usar el contexto.",
-                aiTip: "💡 Pista para el grupo: Recuérdales las estrategias físicas que usan al estudiar en la escuela o universidad."
+                texto: "Llegan a un pasillo lleno de susurros y distracciones. Al fondo hay una puerta con un grabado dorado. Para atravesar el pasillo sin perderse, el libro exige preparar la mente antes de cruzar y mantener el enfoque durante el trayecto...",
+                pregunta: "✨ Pregunta a la clase:<br>1) ¿Qué deben hacer ANTES de abrir la puerta observando solo el título del grabado?<br>2) ¿Qué hacen MIENTRAS avanzan para no distraerse?",
+                retroalimentacion: "<b>Concepto a retroalimentar:</b><br>• <i>Estrategias ANTES:</i> Activar conocimientos previos, predecir el contenido e identificar el propósito.<br>• <i>Estrategias DURANTE:</i> Identificar ideas clave, formular preguntas internas y deducir significados por el contexto.",
+                aiTip: "💡 Pista del Oráculo: Pregúntales qué hacen ellos cuando ven el título de una película antes de verla."
             },
             {
                 capitulo: "CAPÍTULO IV",
-                titulo: "EL DESAFÍO DE LAS TRES RUNAS",
+                titulo: "LA PRUEBA DE LAS TRES RUNAS",
                 imagen: "", 
                 audioNarracion: "",
-                historia: "El guardián les lanza una prueba sobre esta profecía: <i>'En el año 1020, la Maga Eldora usó el Hechizo de Luz para salvar el reino de Astralia'</i>.",
-                pregunta: "✨ ¿Cómo responderían a esto?:<br>1. ¿En qué año y reino ocurrió?<br>2. ¿Por qué Eldora tomó esa decisión si no está escrito explícitamente?<br>3. ¿Fue correcta su acción?",
-                retroalimentacion: "<b>Puntos clave a retroalimentar como grupo:</b><br>• <i>Niveles de Comprensión:</i><br>1. Nivel Literal (datos explícitos).<br>2. Nivel Inferencial (deducir, leer entre líneas).<br>3. Nivel Crítico (emitir juicios fundamentados).",
-                aiTip: "💡 Pista para el grupo: Haz énfasis en que la 3ra pregunta no tiene una respuesta 'única', sino que depende del argumento de cada uno."
+                texto: "El Guardián del Pasillo les muestra este pergamino: 'En el año 1020, la Maga Eldora invocó el Hechizo de Luz para salvar el reino de Astralia'. Ahora el Guardián exige tres respuestas para dejarlos pasar...",
+                pregunta: "✨ Analicen juntos:<br>1. ¿En qué año y reino ocurrió? (Respuesta directa)<br>2. ¿Por qué creen que Eldora arriesgó su vida si el texto no lo dice explícitamente?<br>3. ¿Les parece que actuó correctamente?",
+                retroalimentacion: "<b>Concepto a retroalimentar:</b><br>• Conectar con los <i>Niveles de Comprensión Lectora</i>:<br>1. <b>Nivel Literal:</b> Datos explícitos en el texto.<br>2. <b>Nivel Inferencial:</b> Deducir lo que está entre líneas.<br>3. <b>Nivel Crítico:</b> Emitir un juicio de valor personal.",
+                aiTip: "💡 Pista del Oráculo: Muestra cómo cada pregunta sube un escalón de complejidad en la mente."
             },
             {
                 capitulo: "CAPÍTULO V",
-                titulo: "LA CONSOLIDACIÓN DEL PODER",
+                titulo: "EL SELLO DEL CONOCIMIENTO",
                 imagen: "", 
                 audioNarracion: "",
-                historia: "¡El portal se ha abierto por completo! El conocimiento brilla en sus mentes. Pero A.R.I.A. les advierte que si no organizan lo que aprendieron ahora mismo, la magia se disipará.",
-                pregunta: "✨ ¿Qué herramienta o acción harían ahora mismo para organizar este nuevo conocimiento, recordarlo y explicárselo a otros?",
-                retroalimentacion: "<b>Puntos clave a retroalimentar como grupo:</b><br>• <i>Estrategias DESPUÉS:</i> Parafrasear, resúmenes, organizadores visuales (mapas conceptuales/mentales) y reflexión final.",
-                aiTip: "💡 Pista para el grupo: Menciónales el valor de dibujar esquemas o mapas mentales."
+                texto: "¡El pasillo se ilumina! Han alcanzado el salón principal. Pero la magia recién adquirida se disipará al instante si no realizan una última acción para fijar el conocimiento en sus memorias...",
+                pregunta: "✨ Pregunta a la clase: ¿Qué técnica o herramienta usarían justo DESPUÉS de aprender algo nuevo para no olvidarlo nunca y podérselo explicar a otros?",
+                retroalimentacion: "<b>Concepto a retroalimentar:</b><br>• <i>Estrategias DESPUÉS de la lectura:</i> Parafrasear (decirlo con tus palabras), hacer resúmenes, elaborar mapas conceptuales/mentales y reflexionar.",
+                aiTip: "💡 Pista del Oráculo: Menciona el poder de hacer un esquema o un dibujo mental."
             }
         ];
 
-        let escenaActual = 0;
+        let indexEscena = 0;
+        let typingTimeout;
 
-        // Elementos DOM
+        // Variables DOM
+        const introScreen = document.getElementById("intro-screen");
+        const btnStart = document.getElementById("btn-start");
+        const btnStartOrb = document.getElementById("btn-start-orb");
+        const cinemaStage = document.getElementById("cinema-stage");
+        const chapterTag = document.getElementById("chapter-tag");
+        const sceneTitle = document.getElementById("scene-title");
+        const sceneImg = document.getElementById("scene-img");
+        const sceneAudio = document.getElementById("scene-audio");
+        const typewriterText = document.getElementById("typewriter-text");
+        const questionCard = document.getElementById("question-card");
+        const questionText = document.getElementById("question-text");
+        const btnRevealGuide = document.getElementById("btn-reveal-guide");
+        const groupGuide = document.getElementById("group-guide");
+        const guideContent = document.getElementById("guide-content");
+        const btnNextScene = document.getElementById("btn-next-scene");
+        
+        // Audio
         const bgMusic = document.getElementById("bg-music");
         const btnAudioToggle = document.getElementById("btn-audio-toggle");
-        const volumeSlider = document.getElementById("volume-slider");
-        const startScreen = document.getElementById("start-screen");
-        const btnStart = document.getElementById("btn-start");
-        const magicStage = document.getElementById("magic-stage");
-        const phaseBadge = document.getElementById("phase-badge");
-        const actTitle = document.getElementById("act-title");
-        const storyText = document.getElementById("story-text");
-        const questionText = document.getElementById("question-text");
-        const sceneImg = document.getElementById("scene-img");
-        const sceneAudioPlayer = document.getElementById("scene-audio-player");
-        const btnRevealPanel = document.getElementById("btn-reveal-panel");
-        const theoryPanel = document.getElementById("theory-panel");
-        const theoryContent = document.getElementById("theory-content");
-        const btnNextAct = document.getElementById("btn-next-act");
-        
-        const btnAiToggle = document.getElementById("btn-ai-toggle");
-        const aiBox = document.getElementById("ai-box");
-        const aiClose = document.getElementById("ai-close");
-        const aiContent = document.getElementById("ai-content");
-
-        // Control de Música de Fondo
+        const volSlider = document.getElementById("vol-slider");
         let isPlaying = false;
+
+        // Asistente IA
+        const btnAi = document.getElementById("btn-ai");
+        const aiModal = document.getElementById("ai-modal");
+        const aiClose = document.getElementById("ai-close");
+        const aiText = document.getElementById("ai-text");
+
+        // --- EFECTO MÁQUINA DE ESCRIBIR ---
+        function typeWriter(text, element, speed = 35, callback) {
+            element.innerHTML = "";
+            let i = 0;
+            clearTimeout(typingTimeout);
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    typingTimeout = setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        // --- CARGAR ESCENA ---
+        function cargarEscena(index) {
+            const data = historiaArcana[index];
+            
+            // Ocultar elementos previos
+            questionCard.classList.remove("show");
+            groupGuide.classList.add("hidden");
+            btnRevealGuide.classList.add("hidden");
+
+            // Cargar Encabezados
+            chapterTag.textContent = data.capitulo;
+            sceneTitle.textContent = data.titulo;
+            guideContent.innerHTML = data.retroalimentacion;
+            aiText.innerHTML = data.aiTip;
+
+            // Cargar Imagen si existe
+            if (data.imagen && data.imagen.trim() !== "") {
+                sceneImg.src = data.imagen;
+                sceneImg.classList.remove("hidden");
+            } else {
+                sceneImg.classList.add("hidden");
+            }
+
+            // Cargar Audio de Escena si existe
+            if (data.audioNarracion && data.audioNarracion.trim() !== "") {
+                sceneAudio.src = data.audioNarracion;
+                sceneAudio.classList.remove("hidden");
+            } else {
+                sceneAudio.classList.add("hidden");
+            }
+
+            // Iniciar Efecto Máquina de Escribir para el Texto Narrativo
+            typeWriter(data.texto, typewriterText, 30, () => {
+                // Cuando termina de escribir, aparece la pregunta con un efecto suave
+                questionText.innerHTML = data.pregunta;
+                questionCard.classList.add("show");
+                btnRevealGuide.classList.remove("hidden");
+            });
+        }
+
+        // Iniciar Experiencia desde Pantalla Negra
+        function iniciarExperiencia() {
+            introScreen.style.opacity = "0";
+            bgMusic.play().catch(() => {});
+            isPlaying = true;
+            btnAudioToggle.textContent = "🔊";
+
+            setTimeout(() => {
+                introScreen.classList.add("hidden");
+                cinemaStage.classList.remove("hidden");
+                cargarEscena(0);
+            }, 1200);
+        }
+
+        btnStart.addEventListener("click", iniciarExperiencia);
+        btnStartOrb.addEventListener("click", iniciarExperiencia);
+
+        // Revelar Guía del Grupo
+        btnRevealGuide.addEventListener("click", () => {
+            groupGuide.classList.remove("hidden");
+            btnRevealGuide.classList.add("hidden");
+        });
+
+        // Siguiente Escena
+        btnNextScene.addEventListener("click", () => {
+            indexEscena++;
+            if (indexEscena < historiaArcana.length) {
+                cargarEscena(indexEscena);
+            } else {
+                // Final Cinematográfico
+                chapterTag.textContent = "EPÍLOGO";
+                sceneTitle.textContent = "MAESTRÍA ALCANZADA";
+                sceneImg.classList.add("hidden");
+                sceneAudio.classList.add("hidden");
+                questionCard.classList.remove("show");
+                groupGuide.classList.add("hidden");
+                btnRevealGuide.classList.add("hidden");
+                
+                typeWriter("El Grimorio brilla con intensidad. Han demostrado que comprender un texto no es un acto pasivo, sino un proceso mágico de interpretación y análisis. ¡Felicidades, Maestras y Aprendices!", typewriterText, 40);
+            }
+        });
+
+        // Controles de Música
         btnAudioToggle.addEventListener("click", () => {
             if (isPlaying) {
                 bgMusic.pause();
@@ -470,77 +544,13 @@
             isPlaying = !isPlaying;
         });
 
-        volumeSlider.addEventListener("input", (e) => {
+        volSlider.addEventListener("input", (e) => {
             bgMusic.volume = e.target.value;
         });
 
-        // Iniciar
-        btnStart.addEventListener("click", () => {
-            startScreen.style.opacity = "0";
-            bgMusic.play().catch(() => {}); // Inicia audio si el navegador lo permite
-            isPlaying = true;
-            btnAudioToggle.textContent = "🔊";
-
-            setTimeout(() => {
-                startScreen.classList.add("hidden");
-                magicStage.classList.remove("hidden");
-                cargarEscena(0);
-            }, 1200);
-        });
-
-        function cargarEscena(index) {
-            const data = escenas[index];
-            phaseBadge.textContent = data.capitulo;
-            actTitle.textContent = data.titulo;
-            storyText.innerHTML = data.historia;
-            questionText.innerHTML = data.pregunta;
-            theoryContent.innerHTML = data.retroalimentacion;
-            aiContent.innerHTML = data.aiTip;
-
-            // Cargar Imagen si existe
-            if (data.imagen && data.imagen.trim() !== "") {
-                sceneImg.src = data.imagen;
-                sceneImg.classList.remove("hidden");
-            } else {
-                sceneImg.classList.add("hidden");
-            }
-
-            // Cargar Audio si existe
-            if (data.audioNarracion && data.audioNarracion.trim() !== "") {
-                sceneAudioPlayer.src = data.audioNarracion;
-                sceneAudioPlayer.classList.remove("hidden");
-            } else {
-                sceneAudioPlayer.classList.add("hidden");
-            }
-
-            theoryPanel.classList.add("hidden");
-            btnRevealPanel.classList.remove("hidden");
-        }
-
-        btnRevealPanel.addEventListener("click", () => {
-            theoryPanel.classList.remove("hidden");
-            btnRevealPanel.classList.add("hidden");
-        });
-
-        btnNextAct.addEventListener("click", () => {
-            escenaActual++;
-            if (escenaActual < escenas.length) {
-                cargarEscena(escenaActual);
-            } else {
-                phaseBadge.textContent = "FINAL";
-                actTitle.textContent = "¡MAESTRÍA ARCANA ALCANZADA!";
-                storyText.innerHTML = "<b>¡Felicitaciones, Expositoras y Estudiantes!</b><br>Han completado el recorrido. El conocimiento de la comprensión lectora ahora habita en ustedes.";
-                questionText.textContent = "🎓 Fin de la experiencia.";
-                sceneImg.classList.add("hidden");
-                sceneAudioPlayer.classList.add("hidden");
-                theoryPanel.classList.add("hidden");
-                btnRevealPanel.classList.add("hidden");
-            }
-        });
-
-        // Widget Asistente IA
-        btnAiToggle.addEventListener("click", () => aiBox.classList.toggle("hidden"));
-        aiClose.addEventListener("click", () => aiBox.classList.add("hidden"));
+        // Controles Asistente IA
+        btnAi.addEventListener("click", () => aiModal.classList.toggle("hidden"));
+        aiClose.addEventListener("click", () => aiModal.classList.add("hidden"));
     </script>
 </body>
 </html>
